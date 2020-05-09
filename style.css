@@ -33,6 +33,7 @@
 .container-left {
     height: calc(100% - 120px);
     overflow-y: scroll;
+    border-top: 2px solid #f7f7f7;
 }
 
 /* scrollbar di prova */
@@ -153,7 +154,7 @@
 }
 
 .user-img {
-    border: 1px solid grey;
+    border: 1px solid rgba(128, 128, 128, 0.253);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -161,6 +162,7 @@
     height: 50px;
     border-radius: 50%;
     margin-right: 20px;
+    background-color: white;
 }
 
 .user-img img {
@@ -185,12 +187,17 @@
 }
 .name span {
     font-size: 10px;
-    color: grey;
+    color: rgba(128, 128, 128, 0.438);
     text-align: right;
 }
 
 .message {
-    color: grey;
+    color: rgba(128, 128, 128, 0.829);
+    max-width: 80%;
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .right-box {
