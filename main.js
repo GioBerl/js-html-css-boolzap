@@ -30,7 +30,6 @@ $(document).ready(function () {
         $(".body-right").html("");
     });
 
-    //RICERCA NOMI IN ELENCO
     $(".header-left-bottom input").keypress(function (event) {
         if (event.key == "Enter") {
             //LEGGO IL VALORE PASSATO IN INPUT E LO LOWERCASO
@@ -38,22 +37,22 @@ $(document).ready(function () {
             var ricercaLower = ricerca.toLowerCase();
             $(this).val(""); //azzero input
 
-            console.log(ricercaLower);
-
-            $(".container-left .name div").each(function () {
+            $(".user-box .name div").each(function () {
                 var nome = $(this).text();
                 var nomeLower = nome.toLowerCase();
-                console.log(nomeLower);
-                // !SEI ARRIVATO QUI
-                if (ricercaLower === nomeLower) {
-                    var daMettere = $(this).html();
+                console.log(ricercaLower, nomeLower);
 
-                    console.log(daMettere);
+                if (ricercaLower == nomeLower) {
+                    var userBox = $(this).closest(".user-box").html();
                     //tolgo tutto dentro container-left
                     //e rimetto solo quello che mi corrisponde
-                    $(".container-left").append($(this));
+                    console.log(userBox);
+
+                    $(".container-left").html("");
+                    $(".container-left").append(
+                        `<div class='user-box'>${userBox}</div>`
+                    );
                 } else {
-                    console.log("non trovato");
                 }
             });
         }
