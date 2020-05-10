@@ -29,6 +29,35 @@ $(document).ready(function () {
     $(".fa-microphone").click(function () {
         $(".body-right").html("");
     });
+
+    //RICERCA NOMI IN ELENCO
+    $(".header-left-bottom input").keypress(function (event) {
+        if (event.key == "Enter") {
+            //LEGGO IL VALORE PASSATO IN INPUT E LO LOWERCASO
+            var ricerca = $(this).val();
+            var ricercaLower = ricerca.toLowerCase();
+            $(this).val(""); //azzero input
+
+            console.log(ricercaLower);
+
+            $(".container-left .name div").each(function () {
+                var nome = $(this).text();
+                var nomeLower = nome.toLowerCase();
+                console.log(nomeLower);
+                // !SEI ARRIVATO QUI
+                if (ricercaLower === nomeLower) {
+                    var daMettere = $(this).html();
+
+                    console.log(daMettere);
+                    //tolgo tutto dentro container-left
+                    //e rimetto solo quello che mi corrisponde
+                    $(".container-left").append($(this));
+                } else {
+                    console.log("non trovato");
+                }
+            });
+        }
+    });
 });
 
 function rispondi() {
