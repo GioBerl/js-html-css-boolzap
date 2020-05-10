@@ -240,8 +240,8 @@
 
 .icon-box {
     width: 15%;
-    /* display: flex;
-    justify-content: space-evenly; */
+    display: flex;
+    justify-content: flex-end;
 }
 
 .icon-box i {
