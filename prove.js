@@ -7,17 +7,16 @@ $(document).ready(function () {
 
             var str = $(".write-msg input").val();
             $(".write-msg input").val(""); //azzera input
-            $(".body-right").append(`<div class="body-message">
-                                    <div class="arrow-left"></div>
-                                    ${str} <span class="time">${time}</span>
-                                </div>`);
-            //SCROLL WHEN THE MESSAGE IS SEND
-            // var n = $(document).height();
-            // console.log(n);
-            //!n is the distance from the top
 
+            //dentro il template metto l'input dell'utente e l'ora
+            $(".template.domanda .text").text(str);
+            $(".template.domanda .time").text(time);
+            //clono la struttura dentro il template
+            var template = $(".template.domanda .body-message").clone();
+
+            //e la aggiungo a body-right
+            $(".body-right").append(template);
             setTimeout(rispondi, 1000);
-            // $(".body-right").animate({ scrollTop: n }, 2001);
             $(".body-right").animate({
                 scrollTop: $(".body-right").prop("scrollHeight"),
             });
@@ -28,32 +27,20 @@ $(document).ready(function () {
         $(".body-right").html("");
     });
 
-    $(".header-left-bottom input").keypress(function (event) {
-        if (event.key == "Enter") {
-            //LEGGO IL VALORE PASSATO IN INPUT E LO LOWERCASO
-            var ricerca = $(this).val();
-            var ricercaLower = ricerca.toLowerCase();
-            $(this).val(""); //azzero input
+    //RICERCA NOME
+    // ? SUL KEYPRESS NON MI PRENDE LA PRIMA LETTERA (SE PROVI A CERCARE oracolo fino a 'ora' trova sia oracolo che morpheus perche' non legge ancora la a)
+    $(".header-left-bottom input").keyup(function () {
+        var ricerca = $(this).val().toLowerCase();
 
-            $(".user-box .name div").each(function () {
-                var nome = $(this).text();
-                var nomeLower = nome.toLowerCase();
-                console.log(ricercaLower, nomeLower);
-
-                if (ricercaLower == nomeLower) {
-                    var userBox = $(this).parents(".user-box").html();
-                    //tolgo tutto dentro container-left (con empty rimuovo i figli, con remove l'emento stesso con i figli)
-                    //e rimetto solo quello che mi corrisponde
-                    console.log(userBox);
-
-                    $(".container-left").empty();
-                    $(".container-left").append(
-                        `<div class='user-box'>${userBox}</div>`
-                    );
-                } else {
-                }
-            });
-        }
+        // console.log(ricerca);
+        $(".user-box .name div").each(function () {
+            var nomiUtenti = $(this).text().toLowerCase();
+            if (nomiUtenti.indexOf(ricerca) != -1) {
+                $(this).closest(".user-box").show();
+            } else {
+                $(this).closest(".user-box").hide();
+            }
+        });
     });
 });
 

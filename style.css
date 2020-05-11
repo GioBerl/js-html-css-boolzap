@@ -5,6 +5,10 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.template {
+    display: none;
+}
+
 .bg-top {
     height: 15vh;
     width: 100%;
