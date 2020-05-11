@@ -5,7 +5,8 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.template {
+.template,
+i.fa-paper-plane {
     display: none;
 }
 
