@@ -300,6 +300,37 @@ i.fa-paper-plane {
     font-size: 14px;
 }
 
+.body-message:hover .destroy i {
+    display: block;
+}
+
+.body-message .destroy-actions {
+    position: absolute;
+    right: 1px;
+    top: 39px;
+    width: 142px;
+    padding: 10px;
+    background-color: white;
+    display: none;
+}
+.body-message.answer .destroy-actions {
+    position: absolute;
+    left: 1px;
+    top: 39px;
+    width: 142px;
+    padding: 10px;
+    background-color: white;
+}
+
+.body-message i {
+    position: absolute;
+    top: 4px;
+    right: 9px;
+    font-size: 15px;
+    cursor: pointer;
+    display: none;
+}
+
 .arrow-right {
     width: 0;
     height: 0;

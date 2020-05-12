@@ -69,6 +69,15 @@ $(document).ready(function () {
             $("i.fa-microphone").fadeIn();
         }
     });
+
+    //COMPARSA icona dentro .destroy
+    $(".body-message")
+        .mouseenter(function () {
+            $(this).find("i").show();
+        })
+        .mouseleave(function () {
+            $(this).find("i").hide();
+        });
 });
 
 function rispondi() {
@@ -115,6 +124,7 @@ function sendMsg() {
     $(".template.domanda .time").text(time);
     //clono la struttura dentro il template
     var template = $(".template.domanda .body-message").clone();
+    console.log(template.html());
 
     //e la aggiungo a body-right come domanda
     $(".body-right").append(template);
