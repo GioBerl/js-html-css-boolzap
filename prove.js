@@ -2,7 +2,7 @@ $(document).ready(function () {
     //INVIO MESSAGGIO TRAMITE Enter
     $(".write-msg input").keypress(function (event) {
         //MANDO IL MESSAGGIO QUANDO PREME Enter E QUANDO IL MESSAGGIO NON E' VUOTO
-        if (event.key == "Enter" && $(".write-msg input").val()) {
+        if (event.key == "Enter" && $(".write-msg input").val().trim()) {
             sendMsg();
         }
     });
@@ -34,24 +34,24 @@ $(document).ready(function () {
         //CAMBIO BLOCCO HEADER
         //prendo le specifiche del contatto (a sinistra)
         var immagineContatto = $(this).find("img").attr("src"); //immagine
-        var nomeContatto = $(this).find(".name div").text();
-        //e le porto sull'header (a destra)
+        var nomeContatto = $(this).find(".name div").text(); //il nome
+        var fraseContatto = $(this).find(".message").text(); // e la frase
+        //immagine e nome li porto sull'header (a destra)
         $(".header-right .user-img img").attr("src", immagineContatto);
         $(".header-right .name div").text(nomeContatto);
-
-        var fraseContatto = $(this).find(".message").text();
-        //dentro il template.risposta metto la frase di risposta e l'ora
+        //dentro il template.risposta metto la frase e l'ora(fittizia)
         $(".template.risposta .text").text(fraseContatto);
         $(".template.risposta .time").text("12:00");
         //clono la struttura dentro il template
         var templateRisposta = $(
             ".template.risposta .body-message.answer"
         ).clone();
+        //se c'e' bisogno faccio lo scroll
         $(".body-right").animate({
             scrollTop: $(".body-right").prop("scrollHeight"),
         });
         //pulisco la chat dagli altri eventuali messaggi
-        $(".body-right").html("");
+        // $(".body-right").html("");
         //e la aggiungo a body-right
         $(".body-right").append(templateRisposta);
     });
@@ -59,12 +59,14 @@ $(document).ready(function () {
     //COMPARSA SEND ICON AL FOCUS SULL'INPUT
     $(".write-msg input").focus(function () {
         $("i.fa-microphone").hide();
-        $("i.fa-paper-plane").show();
+        $("i.fa-paper-plane").fadeIn();
     });
-    //una volta comparso posso mandare il mex
+    //una volta comparsa l'icona fa-paper-plane posso mandare il mex e tornare alla classe microphone
     $("i.fa-paper-plane").click(function () {
-        if ($(".write-msg input").val()) {
+        if ($(".write-msg input").val().trim()) {
             sendMsg();
+            $("i.fa-paper-plane").hide();
+            $("i.fa-microphone").fadeIn();
         }
     });
 });
@@ -94,7 +96,7 @@ function rispondi() {
     $(".body-right").animate({
         scrollTop: $(".body-right").prop("scrollHeight"),
     });
-    //e la aggiungo a body-right
+    //e la aggiungo a body-right come risposta
     $(".body-right").append(templateRisposta);
     $(".body-right").animate({
         scrollTop: $(".body-right").prop("scrollHeight"),
@@ -114,7 +116,7 @@ function sendMsg() {
     //clono la struttura dentro il template
     var template = $(".template.domanda .body-message").clone();
 
-    //e la aggiungo a body-right
+    //e la aggiungo a body-right come domanda
     $(".body-right").append(template);
     setTimeout(rispondi, 1000);
     $(".body-right").animate({
