@@ -13,9 +13,9 @@ $(document).ready(function () {
     });
 
     //RICERCA NOME
-    // ? SUL KEYPRESS NON MI PRENDE LA PRIMA LETTERA (SE PROVI A CERCARE oracolo fino a 'ora' trova sia oracolo che morpheus perche' non legge ancora la a)
+    // ? SUL KEYPRESS NON MI PRENDE LA PRIMA LETTERA (SE PROVI A CERCARE oracolo fino a 'ora' trova sia oracolo che morpheus perche' non legge ancora la a) e non mi prende caratteri come canc delete ecc
     $(".header-left-bottom input").keyup(function () {
-        var ricerca = $(this).val().toLowerCase();
+        var ricerca = $(this).val().trim().toLowerCase();
 
         // vado a ciclare tutti i nomi dei contatti
         $(".user-box .name div").each(function () {
@@ -71,13 +71,32 @@ $(document).ready(function () {
     });
 
     //COMPARSA icona dentro .destroy
-    $(".body-message")
-        .mouseenter(function () {
-            $(this).find("i").show();
+    //!!!ATTENZIONE non puoi usare direttamente div.body-message come selettore
+    //questo selettore non va bene perche non considera gli elementi dinamici
+    $(".body-right")
+        .on("mouseenter", "div.body-message", function () {
+            $(this).find(".destroy i").fadeIn();
         })
-        .mouseleave(function () {
-            $(this).find("i").hide();
+        .on("mouseleave", "div.body-message", function () {
+            $(this).find(".destroy i").fadeOut();
         });
+
+    //COMPARSA MENU AL CLICK SULL'ICONA DI .body-message
+    $(".body-right").on("click", ".body-message", function (e) {
+        // var target = $(e.target);
+        // console.log(target);
+        // if (target.hasClass("fa-chevron-down")) {
+        //     //faccio apparire il menu
+        //     $(this).find(".destroy-actions").show();
+        // } else {
+        //     $(this).find(".destroy-actions").hide();
+        // }
+
+        //una volta aaparso voglio che quando tolgo il focus scompaia
+        $(this).find("i");
+    });
+    // QUESTA VA BENE PER IL CLICK SUL SECONDO h3
+    // $(this).find(".destroy-actions h3:nth-child(2)").blur($(this).hide());
 });
 
 function rispondi() {
@@ -101,12 +120,13 @@ function rispondi() {
     $(".template.risposta .text").text(fraseRandom);
     $(".template.risposta .time").text(time);
     //clono la struttura dentro il template
-    var templateRisposta = $(".template.risposta .body-message.answer").clone();
+    var templateRisposta = $(".template.risposta").clone();
+
     $(".body-right").animate({
         scrollTop: $(".body-right").prop("scrollHeight"),
     });
     //e la aggiungo a body-right come risposta
-    $(".body-right").append(templateRisposta);
+    $(".body-right").append(templateRisposta.html());
     $(".body-right").animate({
         scrollTop: $(".body-right").prop("scrollHeight"),
     });
@@ -122,12 +142,14 @@ function sendMsg() {
     //dentro il template.domanda metto l'input dell'utente e l'ora
     $(".template.domanda .text").text(str);
     $(".template.domanda .time").text(time);
-    //clono la struttura dentro il template
-    var template = $(".template.domanda .body-message").clone();
-    console.log(template.html());
+    //clono la struttura dentro il template (quello che c' e' dentro body-message)
+    var template = $(".template.domanda").clone();
+    // console.log(template.html());
 
     //e la aggiungo a body-right come domanda
-    $(".body-right").append(template);
+    $(".body-right").append(template.html());
+    // console.log($(".body-right").append(template).html());
+
     setTimeout(rispondi, 1000);
     $(".body-right").animate({
         scrollTop: $(".body-right").prop("scrollHeight"),

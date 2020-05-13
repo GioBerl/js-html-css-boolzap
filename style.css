@@ -300,8 +300,10 @@ i.fa-paper-plane {
     font-size: 14px;
 }
 
-.body-message:hover .destroy i {
-    display: block;
+.body-message::after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .body-message .destroy-actions {
@@ -309,20 +311,23 @@ i.fa-paper-plane {
     right: 1px;
     top: 39px;
     width: 142px;
-    padding: 10px;
-    background-color: white;
+    background-color: grey;
     display: none;
 }
-.body-message.answer .destroy-actions {
+/* .body-message.answer .destroy-actions {
     position: absolute;
     left: 1px;
     top: 39px;
     width: 142px;
+    background-color: grey;
+    display: none;
+} */
+
+.destroy h3 {
     padding: 10px;
-    background-color: white;
 }
 
-.body-message i {
+.destroy i {
     position: absolute;
     top: 4px;
     right: 9px;
@@ -330,6 +335,10 @@ i.fa-paper-plane {
     cursor: pointer;
     display: none;
 }
+
+/* .body-message:hover .destroy i {
+    display: block;
+} */
 
 .arrow-right {
     width: 0;
