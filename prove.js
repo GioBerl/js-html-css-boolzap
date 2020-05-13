@@ -7,11 +7,6 @@ $(document).ready(function () {
         }
     });
 
-    //PER PULIRE LA CHAT (solo per test da cancellare dopo..)
-    $(".fa-microphone").click(function () {
-        $(".body-right").html("");
-    });
-
     //RICERCA NOME
     // ? SUL KEYPRESS NON MI PRENDE LA PRIMA LETTERA (SE PROVI A CERCARE oracolo fino a 'ora' trova sia oracolo che morpheus perche' non legge ancora la a) e non mi prende caratteri come canc delete ecc
     $(".header-left-bottom input").keyup(function () {
@@ -60,7 +55,7 @@ $(document).ready(function () {
         // ).clone();
         // //se c'e' bisogno faccio lo scroll
         // $(".body-right.active").animate({
-        //     scrollTop: $(".body-right").prop("scrollHeight"),
+        //     scrollTop: $(".body-right.active").prop("scrollHeight"),
         // });
 
         // //e la aggiungo a body-right
@@ -69,43 +64,56 @@ $(document).ready(function () {
 
     //COMPARSA SEND ICON AL FOCUS SULL'INPUT
     $(".write-msg input").focus(function () {
-        $("i.fa-microphone").hide();
-        $("i.fa-paper-plane").fadeIn();
+        $(".mic i").toggleClass("fa-microphone fa-paper-plane");
     });
+    $(".write-msg input").blur(function () {
+        $(".mic i").toggleClass("fa-paper-plane fa-microphone");
+    });
+
     //una volta comparsa l'icona fa-paper-plane posso mandare il mex e tornare alla classe microphone
-    $("i.fa-paper-plane").click(function () {
-        if ($(".write-msg input").val().trim()) {
-            sendMsg();
-            $("i.fa-paper-plane").hide();
-            $("i.fa-microphone").fadeIn();
-        }
+    $(".mic").click(function (e) {
+        sendMsg();
     });
 
     //COMPARSA icona dentro .destroy
     //!!!ATTENZIONE non puoi usare direttamente div.body-message come selettore
     //questo selettore non va bene perche non considera gli elementi dinamici
-    $(".body-right")
-        .on("mouseenter", "div.body-message", function () {
-            $(this).find(".destroy i").fadeIn();
-        })
-        .on("mouseleave", "div.body-message", function () {
-            $(this).find(".destroy i").fadeOut();
-        });
+    $(".body-right").on("mouseenter", "div.body-message", function () {
+        $(this).find(".destroy i").fadeIn();
+    });
+    // .on("mouseleave", "div.body-message", function () {
+    //     $(this).find(".destroy i").fadeOut();
+    // });
 
     //COMPARSA MENU AL CLICK SULL'ICONA DI .body-message
-    $(".body-right").on("click", ".body-message", function (e) {
-        // var target = $(e.target);
-        // console.log(target);
-        // if (target.hasClass("fa-chevron-down")) {
-        //     //faccio apparire il menu
-        //     $(this).find(".destroy-actions").show();
-        // } else {
-        //     $(this).find(".destroy-actions").hide();
-        // }
+    $(".body-right")
+        .on("click", ".body-message i", function (e) {
+            var target = $(e.target);
+            if (target.hasClass("fa-chevron-down")) {
+                $(this).next(".destroy-actions").show();
+            }
+        })
+        .on("click", ".delete", function () {
+            $(this).closest(".body-message").remove();
+        });
 
-        //una volta aaparso voglio che quando tolgo il focus scompaia
-        $(this).find("i");
-    });
+    //al focus su un altro elemteo del body-right(per ora) faccio richiudere il menu .destroy-actions
+    // $(document).on("click", ".right-box", function () {
+    //     $(this).find(".destroy-actions").hide();
+    // });
+
+    // $(document).on("click", ".body-right", function (e) {
+    //     var target = $(e.target);
+    //     console.log(target);
+    //     if (target.hasClass("fa-chevron-down")) {
+    //         //faccio apparire il menu
+    //         $(this).find(".destroy-actions").show();
+    //     } else {
+    //         $(this).find(".destroy-actions").hide();
+    //     }
+
+    //una volta aaparso voglio che quando tolgo il focus scompaia
+    // });
     // QUESTA VA BENE PER IL CLICK SUL SECONDO h3
     // $(this).find(".destroy-actions h3:nth-child(2)").blur($(this).hide());
 });
@@ -148,21 +156,23 @@ function sendMsg() {
     var time = date.getHours() + ":" + date.getMinutes();
 
     var str = $(".write-msg input").val();
-    $(".write-msg input").val(""); //azzera input
+    if (str.trim() != 0) {
+        $(".write-msg input").val(""); //azzera input
 
-    //dentro il template.domanda metto l'input dell'utente e l'ora
-    $(".template.domanda .text").text(str);
-    $(".template.domanda .time").text(time);
-    //clono la struttura dentro il template (quello che c' e' dentro body-message)
-    var template = $(".template.domanda").clone();
-    // console.log(template.html());
+        //dentro il template.domanda metto l'input dell'utente e l'ora
+        $(".template.domanda .text").text(str);
+        $(".template.domanda .time").text(time);
+        //clono la struttura dentro il template (quello che c' e' dentro body-message)
+        var template = $(".template.domanda").clone();
+        // console.log(template.html());
 
-    //e la aggiungo a body-right visibile(ACTIVE) come domanda
-    $(".body-right.active").append(template.html());
-    // console.log($(".body-right").append(template).html());
+        //e la aggiungo a body-right visibile(ACTIVE) come domanda
+        $(".body-right.active").append(template.html());
+        // console.log($(".body-right").append(template).html());
 
-    setTimeout(rispondi, 1000);
-    $(".body-right.active").animate({
-        scrollTop: $(".body-right.active").prop("scrollHeight"),
-    });
+        setTimeout(rispondi, 1000);
+        $(".body-right.active").animate({
+            scrollTop: $(".body-right.active").prop("scrollHeight"),
+        });
+    }
 }

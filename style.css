@@ -5,8 +5,7 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.template,
-i.fa-paper-plane {
+.template {
     display: none;
 }
 
@@ -178,7 +177,7 @@ i.fa-paper-plane {
 }
 
 .user-info {
-    width: 82%;
+    width: calc(100% - 70px);
     padding: 10px 0;
     border-bottom: 1px solid rgba(128, 128, 128, 0.13);
 }
@@ -318,6 +317,8 @@ i.fa-paper-plane {
     width: 142px;
     background-color: grey;
     display: none;
+    z-index: 111;
+    cursor: pointer;
 }
 /* .body-message.answer .destroy-actions {
     position: absolute;
@@ -330,6 +331,9 @@ i.fa-paper-plane {
 
 .destroy h3 {
     padding: 10px;
+}
+.destroy h3:hover {
+    background-color: red;
 }
 
 .destroy i {
