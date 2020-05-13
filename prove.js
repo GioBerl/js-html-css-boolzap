@@ -39,21 +39,32 @@ $(document).ready(function () {
         //immagine e nome li porto sull'header (a destra)
         $(".header-right .user-img img").attr("src", immagineContatto);
         $(".header-right .name div").text(nomeContatto);
-        //dentro il template.risposta metto la frase e l'ora(fittizia)
-        $(".template.risposta .text").text(fraseContatto);
-        $(".template.risposta .time").text("12:00");
-        //clono la struttura dentro il template
-        var templateRisposta = $(
-            ".template.risposta .body-message.answer"
-        ).clone();
-        //se c'e' bisogno faccio lo scroll
-        $(".body-right").animate({
-            scrollTop: $(".body-right").prop("scrollHeight"),
-        });
-        //pulisco la chat dagli altri eventuali messaggi
-        // $(".body-right").html("");
-        //e la aggiungo a body-right
-        $(".body-right").append(templateRisposta);
+
+        //ricavo l'indice del contatto
+        var contactIndex = $(this).index();
+        console.log(contactIndex);
+        //seleziono il body-right (la chat) corrispondente
+        var conversation = $(".body-right").eq(contactIndex);
+        console.log(conversation);
+        //alla chat corrente rimuovo la classe active
+        $(".body-right.active").removeClass("active");
+        //e metto la classe active alla chat corrispondente al contatto clickato
+        conversation.addClass("active");
+
+        // //dentro il template.risposta metto la frase e l'ora(fittizia)
+        // $(".template.risposta .text").text(fraseContatto);
+        // $(".template.risposta .time").text("12:00");
+        // //clono la struttura dentro il template
+        // var templateRisposta = $(
+        //     ".template.risposta .body-message.answer"
+        // ).clone();
+        // //se c'e' bisogno faccio lo scroll
+        // $(".body-right.active").animate({
+        //     scrollTop: $(".body-right").prop("scrollHeight"),
+        // });
+
+        // //e la aggiungo a body-right
+        // $(".body-right.active").append(templateRisposta);
     });
 
     //COMPARSA SEND ICON AL FOCUS SULL'INPUT
@@ -122,13 +133,13 @@ function rispondi() {
     //clono la struttura dentro il template
     var templateRisposta = $(".template.risposta").clone();
 
-    $(".body-right").animate({
-        scrollTop: $(".body-right").prop("scrollHeight"),
+    $(".body-right.active").animate({
+        scrollTop: $(".body-right.active").prop("scrollHeight"),
     });
-    //e la aggiungo a body-right come risposta
-    $(".body-right").append(templateRisposta.html());
-    $(".body-right").animate({
-        scrollTop: $(".body-right").prop("scrollHeight"),
+    //e la aggiungo a body-right ACTIVE come risposta
+    $(".body-right.active").append(templateRisposta.html());
+    $(".body-right.active").animate({
+        scrollTop: $(".body-right.active").prop("scrollHeight"),
     });
 }
 
@@ -146,12 +157,12 @@ function sendMsg() {
     var template = $(".template.domanda").clone();
     // console.log(template.html());
 
-    //e la aggiungo a body-right come domanda
-    $(".body-right").append(template.html());
+    //e la aggiungo a body-right visibile(ACTIVE) come domanda
+    $(".body-right.active").append(template.html());
     // console.log($(".body-right").append(template).html());
 
     setTimeout(rispondi, 1000);
-    $(".body-right").animate({
-        scrollTop: $(".body-right").prop("scrollHeight"),
+    $(".body-right.active").animate({
+        scrollTop: $(".body-right.active").prop("scrollHeight"),
     });
 }

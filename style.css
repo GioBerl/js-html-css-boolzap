@@ -263,6 +263,11 @@ i.fa-paper-plane {
     background-image: url(img/wallpaper.jpg);
     background-size: contain;
     overflow-y: scroll;
+    display: none;
+}
+
+.body-right.active {
+    display: block;
 }
 
 /* scrollbar di prova */
