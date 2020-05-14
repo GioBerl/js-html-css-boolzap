@@ -118,27 +118,28 @@ $(document).ready(function () {
             $(".matrix").remove();
         }, 12000);
     });
-
+    //FAI APPARIRE MENU VISUALIZZAZIONE PAGINA
     $(".fa-ellipsis-v").click(function () {
         $(".matrix-menu").toggle();
     });
-
+    // SCELTA MODALITA NORMALE
     $(".normal").click(function () {
         $(".body-right").css({
             "background-image": "url(img/wallpaper.jpg)",
             "background-size": "contain",
         });
         $(".arrow-left, .arrow-right").show();
-        $("div, i, input, .template .arrow-left").removeClass("matrix-mode");
+        $("div, i, input").removeClass("matrix-mode");
         $(this).closest(".matrix-menu").hide();
     });
+    // SCELTA MODALITA MATRIX
     $(".modded").click(function () {
         $(".body-right").css({
             "background-image": "url(img/source.jpg)",
             "background-size": "cover",
         });
         $(".arrow-left, .arrow-right").hide();
-        $("div, i, input, .template .arrow-left").addClass("matrix-mode");
+        $("div, i, input").addClass("matrix-mode");
         $(this).closest(".matrix-menu").hide();
     });
 });

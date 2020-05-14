@@ -473,6 +473,7 @@ hr {
     top: 0;
     left: 0;
     display: none;
+    padding: 50px;
 }
 
 .start-animation h1 {
