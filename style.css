@@ -329,6 +329,10 @@
     display: none;
 } */
 
+hr {
+    background-color: black;
+}
+
 .destroy h3 {
     padding: 10px;
 }

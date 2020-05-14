@@ -15,7 +15,7 @@ $(document).ready(function () {
         // vado a ciclare tutti i nomi dei contatti
         $(".user-box .name div").each(function () {
             var nomiUtenti = $(this).text().toLowerCase();
-            //se ricerca esiste come sottostringa del nome mostro il suo 'blocco' e nascondo gli altri
+            //se ricerca esiste come sottostringa del nome, mostro il suo 'blocco' e nascondo gli altri
             if (nomiUtenti.indexOf(ricerca) != -1) {
                 $(this).closest(".user-box").show();
             } else {
@@ -37,29 +37,12 @@ $(document).ready(function () {
 
         //ricavo l'indice del contatto
         var contactIndex = $(this).index();
-        console.log(contactIndex);
-        //seleziono il body-right (la chat) corrispondente
+        //seleziono il body-right (la chat) corrispondente all'indice del contatto
         var conversation = $(".body-right").eq(contactIndex);
-        console.log(conversation);
         //alla chat corrente rimuovo la classe active
         $(".body-right.active").removeClass("active");
         //e metto la classe active alla chat corrispondente al contatto clickato
         conversation.addClass("active");
-
-        // //dentro il template.risposta metto la frase e l'ora(fittizia)
-        // $(".template.risposta .text").text(fraseContatto);
-        // $(".template.risposta .time").text("12:00");
-        // //clono la struttura dentro il template
-        // var templateRisposta = $(
-        //     ".template.risposta .body-message.answer"
-        // ).clone();
-        // //se c'e' bisogno faccio lo scroll
-        // $(".body-right.active").animate({
-        //     scrollTop: $(".body-right.active").prop("scrollHeight"),
-        // });
-
-        // //e la aggiungo a body-right
-        // $(".body-right.active").append(templateRisposta);
     });
 
     //COMPARSA SEND ICON AL FOCUS SULL'INPUT
@@ -71,13 +54,13 @@ $(document).ready(function () {
     });
 
     //una volta comparsa l'icona fa-paper-plane posso mandare il mex e tornare alla classe microphone
-    $(".mic").click(function (e) {
+    $(".mic").click(function () {
         sendMsg();
     });
 
     //COMPARSA icona dentro .destroy
     //!!!ATTENZIONE non puoi usare direttamente div.body-message come selettore
-    //questo selettore non va bene perche non considera gli elementi dinamici
+    //questo selettore non va bene perche non considera gli elementi dinamici inseriti successivamente
     $(".body-right")
         .on("mouseenter", "div.body-message", function () {
             $(this).find(".destroy i").fadeIn();
@@ -86,13 +69,19 @@ $(document).ready(function () {
             $(this).find(".destroy i").fadeOut();
             $(this).find(".destroy-actions").fadeOut();
         });
+    // ? se volessi che, a menu aperto, al click su un qualsiasi punto della pagina, il menu si chiudesse devo per forza selezionare il document?
+
+    // $(document).on("blur", "body", function() {
+    //     $(this).find(".destroy i").fadeOut();
+    //     $(this).find(".destroy-actions").fadeOut();
+    // });
 
     //COMPARSA MENU AL CLICK SULL'ICONA DI .body-message
     $(".body-right")
         .on("click", ".body-message i", function (e) {
             var target = $(e.target);
             if (target.hasClass("fa-chevron-down")) {
-                $(this).next(".destroy-actions").show();
+                $(this).next(".destroy-actions").toggle();
             }
         })
         .on("click", ".delete", function () {
@@ -109,26 +98,6 @@ $(document).ready(function () {
                     color: "white",
                 });
         });
-
-    //al focus su un altro elemteo del body-right(per ora) faccio richiudere il menu .destroy-actions
-    // $(document).on("click", ".right-box", function () {
-    //     $(this).find(".destroy-actions").hide();
-    // });
-
-    // $(document).on("click", ".body-right", function (e) {
-    //     var target = $(e.target);
-    //     console.log(target);
-    //     if (target.hasClass("fa-chevron-down")) {
-    //         //faccio apparire il menu
-    //         $(this).find(".destroy-actions").show();
-    //     } else {
-    //         $(this).find(".destroy-actions").hide();
-    //     }
-
-    //una volta aaparso voglio che quando tolgo il focus scompaia
-    // });
-    // QUESTA VA BENE PER IL CLICK SUL SECONDO h3
-    // $(this).find(".destroy-actions h3:nth-child(2)").blur($(this).hide());
 });
 
 function rispondi() {
@@ -140,7 +109,8 @@ function rispondi() {
     }
     var time = date.getHours() + ":" + fixedMinutes;
     //per scrivere il nome dentro le frasi
-    var mittente = $(".header-right .name div").text();
+    // var mittente = $(".header-right .name div").text();
+    var mittente = "Giovanni";
     var frasi = [
         "Hai mai fatto un sogno tanto realistico da sembrarti vero? E se da un sogno così non ti dovessi più svegliare? Come potresti distinguere il mondo dei sogni da quello della realtà?",
         "Benvenuto nel mondo vero.",
