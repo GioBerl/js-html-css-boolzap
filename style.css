@@ -461,7 +461,7 @@ hr {
 
 .matrix-mode {
     background-color: black !important;
-    color: green !important;
+    color: rgb(0, 255, 115) !important;
 }
 
 .matrix {
