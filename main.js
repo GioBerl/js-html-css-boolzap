@@ -101,12 +101,14 @@ $(document).ready(function () {
 
     //SNACK---> AL CLICK SU fa-comment-alt FAI APPARIRE L'EASTER EGG
     $("i.fa-comment-alt").click(function () {
+        $(".second").hide();
         $(".matrix").css({
             display: "flex",
             // "align-items": "center",
         });
         //aspetta il tempo della prima animazione e faccio partire la seconda
         setTimeout(function () {
+            $(".second").show();
             $(".start-animation").removeClass("start-animation");
             $(".second").addClass("start-animation");
             $(".first").remove();
