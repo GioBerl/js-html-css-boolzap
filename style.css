@@ -39,7 +39,7 @@
     height: calc(100% - 120px);
     overflow-y: scroll;
     overflow-x: hidden;
-    border-top: 2px solid #f7f7f7;
+    /* border-top: 2px solid #f7f7f7; */
 }
 
 /* scrollbar di prova */
@@ -73,6 +73,35 @@
     align-items: center;
     padding: 0 10px;
     color: rgb(145, 145, 145);
+    position: relative;
+}
+
+.matrix-menu {
+    position: absolute;
+    background-color: rgb(189, 187, 187);
+    color: white;
+    top: 60px;
+    right: 0;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    display: none;
+}
+
+.matrix-menu h3 {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.matrix-menu h3.modded:hover {
+    background-color: rgb(71, 224, 71);
+    color: black;
+    border-radius: 0 0 10px 10px;
+}
+.matrix-menu h3.normal:hover {
+    background-color: pink;
+    color: black;
+    border-radius: 10px 10px 0 0;
 }
 
 .hlt-right i {
@@ -430,11 +459,16 @@ hr {
     border: none;
 }
 
+.matrix-mode {
+    background-color: black !important;
+    color: green !important;
+}
+
 .matrix {
     width: 100%;
     height: 100vh;
     background-color: black;
-    font-size: 30px;
+    font-size: 20px;
     position: fixed;
     top: 0;
     left: 0;

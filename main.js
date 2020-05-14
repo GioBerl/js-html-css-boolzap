@@ -103,7 +103,7 @@ $(document).ready(function () {
     $("i.fa-comment-alt").click(function () {
         $(".matrix").css({
             display: "flex",
-            "align-items": "center",
+            // "align-items": "center",
         });
         //aspetta il tempo della prima animazione e faccio partire la seconda
         setTimeout(function () {
@@ -115,6 +115,29 @@ $(document).ready(function () {
         setTimeout(function () {
             $(".matrix").remove();
         }, 12000);
+    });
+
+    $(".fa-ellipsis-v").click(function () {
+        $(".matrix-menu").toggle();
+    });
+
+    $(".normal").click(function () {
+        $(".body-right").css({
+            "background-image": "url(img/wallpaper.jpg)",
+            "background-size": "contain",
+        });
+        $(".arrow-left, .arrow-right").show();
+        $("div, i, input, .template .arrow-left").removeClass("matrix-mode");
+        $(this).closest(".matrix-menu").hide();
+    });
+    $(".modded").click(function () {
+        $(".body-right").css({
+            "background-image": "url(img/source.jpg)",
+            "background-size": "cover",
+        });
+        $(".arrow-left, .arrow-right").hide();
+        $("div, i, input, .template .arrow-left").addClass("matrix-mode");
+        $(this).closest(".matrix-menu").hide();
     });
 });
 
