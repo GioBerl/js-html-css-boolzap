@@ -78,12 +78,14 @@ $(document).ready(function () {
     //COMPARSA icona dentro .destroy
     //!!!ATTENZIONE non puoi usare direttamente div.body-message come selettore
     //questo selettore non va bene perche non considera gli elementi dinamici
-    $(".body-right").on("mouseenter", "div.body-message", function () {
-        $(this).find(".destroy i").fadeIn();
-    });
-    // .on("mouseleave", "div.body-message", function () {
-    //     $(this).find(".destroy i").fadeOut();
-    // });
+    $(".body-right")
+        .on("mouseenter", "div.body-message", function () {
+            $(this).find(".destroy i").fadeIn();
+        })
+        .on("mouseleave", "div.body-message", function () {
+            $(this).find(".destroy i").fadeOut();
+            $(this).find(".destroy-actions").fadeOut();
+        });
 
     //COMPARSA MENU AL CLICK SULL'ICONA DI .body-message
     $(".body-right")
@@ -94,7 +96,18 @@ $(document).ready(function () {
             }
         })
         .on("click", ".delete", function () {
-            $(this).closest(".body-message").remove();
+            // $(this).closest(".body-message").remove();
+            $(this)
+                .closest(".body-message")
+                .html(
+                    `questo messaggio e' stato cancellato <i class="fas fa-ban"></i>`
+                )
+                .css({
+                    "border-radius": "0",
+                    padding: "10px",
+                    "background-color": "red",
+                    color: "white",
+                });
         });
 
     //al focus su un altro elemteo del body-right(per ora) faccio richiudere il menu .destroy-actions
@@ -120,7 +133,12 @@ $(document).ready(function () {
 
 function rispondi() {
     var date = new Date();
-    var time = date.getHours() + ":" + date.getMinutes();
+    if (date.getMinutes() < 10) {
+        var fixedMinutes = `0${date.getMinutes()}`;
+    } else {
+        fixedMinutes = date.getMinutes();
+    }
+    var time = date.getHours() + ":" + fixedMinutes;
     //per scrivere il nome dentro le frasi
     var mittente = $(".header-right .name div").text();
     var frasi = [
@@ -153,7 +171,12 @@ function rispondi() {
 
 function sendMsg() {
     var date = new Date();
-    var time = date.getHours() + ":" + date.getMinutes();
+    if (date.getMinutes() < 10) {
+        var fixedMinutes = `0${date.getMinutes()}`;
+    } else {
+        fixedMinutes = date.getMinutes();
+    }
+    var time = date.getHours() + ":" + fixedMinutes;
 
     var str = $(".write-msg input").val();
     if (str.trim() != 0) {

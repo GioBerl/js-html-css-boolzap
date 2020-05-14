@@ -315,7 +315,7 @@
     right: 1px;
     top: 39px;
     width: 142px;
-    background-color: grey;
+    background-color: whitesmoke;
     display: none;
     z-index: 111;
     cursor: pointer;
@@ -332,8 +332,13 @@
 .destroy h3 {
     padding: 10px;
 }
-.destroy h3:hover {
+.destroy h3.delete:hover {
     background-color: red;
+    color: white;
+}
+.destroy h3.info:hover {
+    background-color: green;
+    color: white;
 }
 
 .destroy i {
