@@ -484,7 +484,7 @@ hr {
     white-space: nowrap; /* mantiene il contenuto su una linea */
     /*margin: 0 auto; se lo voglio far partire dal centro*/
     letter-spacing: 10px;
-    animation: scrivi 3.5s steps(30, end), lampeggia 0.5s step-end infinite;
+    animation: scrivi 3.5s steps(30), lampeggia 0.5s step-end infinite;
 }
 
 /* effetto  */

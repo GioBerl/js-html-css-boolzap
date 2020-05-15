@@ -119,7 +119,7 @@ $(document).ready(function () {
         }, 12000);
     });
     //FAI APPARIRE MENU VISUALIZZAZIONE PAGINA
-    $(".fa-ellipsis-v").click(function () {
+    $(".fa-exchange-alt").click(function () {
         $(".matrix-menu").toggle();
     });
     // SCELTA MODALITA NORMALE
