@@ -148,8 +148,9 @@ $(document).ready(function () {
         //cambio icona sul footer
         $(this).toggleClass("fa-laugh fa-times");
         //faccio comparire il menu delle faccine
-        $(".smiles").css("display", "flex");
+        $(".smiles").toggleClass("smile-active");
     });
+
     //CLICK SUGLI SMILE
     $(".single-smile").click(function () {
         var faccina = $(this).text();
@@ -250,6 +251,6 @@ function sendMsg() {
     $(".smile i").attr("class", "fas fa-laugh");
     //se il menu delle faccine e' visibile lo nascondo
     if ($(".smiles").is(":visible")) {
-        $(".smiles").hide();
+        $(".smiles").removeClass("smile-active");
     }
 }
