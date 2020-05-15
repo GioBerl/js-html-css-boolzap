@@ -118,9 +118,9 @@ $(document).ready(function () {
             $(".matrix").remove();
         }, 12000);
     });
-    //FAI APPARIRE MENU VISUALIZZAZIONE PAGINA
+    //FAI APPARIRE MENU MODALITA VISUALIZZAZIONE PAGINA
     $(".fa-exchange-alt").click(function () {
-        $(".matrix-menu").toggle();
+        $(".matrix-menu").fadeToggle();
     });
     // SCELTA MODALITA NORMALE
     $(".normal").click(function () {
@@ -142,16 +142,43 @@ $(document).ready(function () {
         $("div, i, input").addClass("matrix-mode");
         $(this).closest(".matrix-menu").hide();
     });
+
+    //CLICK PER APRIRE MENU SMILES
+    $(".fa-laugh").click(function () {
+        //cambio icona sul footer
+        $(this).toggleClass("fa-laugh fa-times");
+        //faccio comparire il menu delle faccine
+        $(".smiles").css("display", "flex");
+    });
+    //CLICK SUGLI SMILE
+    $(".single-smile").click(function () {
+        var faccina = $(this).text();
+        //vado nell'input e copio quello che c'e' scritto
+        var testo = $(".write-msg input").val();
+        //al nuovoTesto aggiungo la faccina
+        var nuovoTesto = testo + faccina;
+        //e lo reiserisco nell'input
+        $(".write-msg input").val(nuovoTesto);
+        //facendo tornare il focus sull'input
+        $(".write-msg input").focus();
+    });
 });
 
 function rispondi() {
     var date = new Date();
+    //per i minuti
     if (date.getMinutes() < 10) {
         var fixedMinutes = `0${date.getMinutes()}`;
     } else {
         fixedMinutes = date.getMinutes();
     }
-    var time = date.getHours() + ":" + fixedMinutes;
+    //per le ore
+    if (date.getHours() < 10) {
+        var fixedHours = `0${date.getHours()}`;
+    } else {
+        fixedHours = date.getHours();
+    }
+    var time = fixedHours + ":" + fixedMinutes;
     //per scrivere il nome dentro le frasi
     // var mittente = $(".header-right .name div").text();
     var mittente = "Giovanni";
@@ -185,12 +212,19 @@ function rispondi() {
 
 function sendMsg() {
     var date = new Date();
+    //per i minuti
     if (date.getMinutes() < 10) {
         var fixedMinutes = `0${date.getMinutes()}`;
     } else {
         fixedMinutes = date.getMinutes();
     }
-    var time = date.getHours() + ":" + fixedMinutes;
+    //per le ore
+    if (date.getHours() < 10) {
+        var fixedHours = `0${date.getHours()}`;
+    } else {
+        fixedHours = date.getHours();
+    }
+    var time = fixedHours + ":" + fixedMinutes;
 
     var str = $(".write-msg input").val();
     if (str.trim() != 0) {
@@ -211,5 +245,11 @@ function sendMsg() {
         $(".body-right.active").animate({
             scrollTop: $(".body-right.active").prop("scrollHeight"),
         });
+    }
+    //reimposto l'icona iniziale sul footer di destra
+    $(".smile i").attr("class", "fas fa-laugh");
+    //se il menu delle faccine e' visibile lo nascondo
+    if ($(".smiles").is(":visible")) {
+        $(".smiles").hide();
     }
 }
