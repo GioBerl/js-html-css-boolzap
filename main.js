@@ -24,16 +24,25 @@ $(document).ready(function () {
         });
     });
 
+    //ASSEGNAZIONE ORARIO RANDOM AI CONTATTI
+    $(".container-left .name span").each(function () {
+        $(this).text(orarioRandom());
+    });
+    //PRENDO QUELLO DEL PRIMO CONTATTO(quello visibile quando si apre la pagina) E LO METTO NELL HEADER A DESTRA
+    $(".header-right .message span.old-time").text($(".primo-orario").text());
+
     //CLICK SU CONTATTO
     $(".user-box").click(function () {
         //CAMBIO BLOCCO HEADER
         //prendo le specifiche del contatto (a sinistra)
         var immagineContatto = $(this).find("img").attr("src"); //immagine
         var nomeContatto = $(this).find(".name div").text(); //il nome
-        var fraseContatto = $(this).find(".message").text(); // e la frase
+        var fraseContatto = $(this).find(".message").text(); //la frase
+        var oraContatto = $(this).find(".name span").text(); //e l'ora
         //immagine e nome li porto sull'header (a destra)
         $(".header-right .user-img img").attr("src", immagineContatto);
         $(".header-right .name div").text(nomeContatto);
+        $(".header-right .message span.old-time").text(oraContatto);
 
         //ricavo l'indice del contatto
         var contactIndex = $(this).index();
@@ -253,4 +262,24 @@ function sendMsg() {
     if ($(".smiles").is(":visible")) {
         $(".smiles").removeClass("smile-active");
     }
+}
+
+//genero un orario random
+function orarioRandom() {
+    // le ore da 0 a 23
+    var ore = Math.floor(Math.random() * 24);
+    // i minuti da 0 a 59
+    var minuti = Math.floor(Math.random() * 60);
+    //imposto la condizione per vedere un formato 00:00
+    if (ore < 10) {
+        var normalOre = `0${ore}`;
+    } else {
+        var normalOre = ore;
+    }
+    if (minuti < 10) {
+        var normalMinuti = `0${minuti}`;
+    } else {
+        var normalMinuti = minuti;
+    }
+    return `${normalOre}:${normalMinuti}`;
 }
