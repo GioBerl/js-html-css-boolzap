@@ -33,17 +33,6 @@ $(document).ready(function () {
 
     //CLICK SU CONTATTO
     $(".user-box").click(function () {
-        //CAMBIO BLOCCO HEADER
-        //prendo le specifiche del contatto (a sinistra)
-        var immagineContatto = $(this).find("img").attr("src"); //immagine
-        var nomeContatto = $(this).find(".name div").text(); //il nome
-        var fraseContatto = $(this).find(".message").text(); //la frase
-        var oraContatto = $(this).find(".name span").text(); //e l'ora
-        //immagine e nome li porto sull'header (a destra)
-        $(".header-right .user-img img").attr("src", immagineContatto);
-        $(".header-right .name div").text(nomeContatto);
-        $(".header-right .message span.old-time").text(oraContatto);
-
         //ricavo l'indice del contatto
         var contactIndex = $(this).index();
         //seleziono il body-right (la chat) corrispondente all'indice del contatto
@@ -52,6 +41,24 @@ $(document).ready(function () {
         $(".body-right.active").removeClass("active");
         //e metto la classe active alla chat corrispondente al contatto clickato
         conversation.addClass("active");
+        //CAMBIO BLOCCO HEADER
+        //prendo le specifiche del contatto (a sinistra)
+        var immagineContatto = $(this).find("img").attr("src"); //immagine
+        var nomeContatto = $(this).find(".name div").text(); //il nome
+        var fraseContatto = $(this).find(".message").text(); //la frase
+        var oraContatto = $(this).find(".name span").text(); //e l'ora
+
+        //immagine e nome li porto sull'header (a destra)
+        $(".header-right .message span.old-time").remove();
+        $(".header-right .user-img img").attr("src", immagineContatto);
+        $(".header-right .name div").text(nomeContatto);
+        if (oraContatto == "ora") {
+            $(".header-right .message .access").text("online");
+        } else {
+            $(".header-right .message .access").text(
+                `ultimo accesso ieri alle ${oraContatto}`
+            );
+        }
     });
 
     //COMPARSA SEND ICON AL FOCUS SULL'INPUT
@@ -204,6 +211,7 @@ function rispondi() {
     ];
     //SCELGO UNA FRASE RANDOM DA POSTARE
     var fraseRandom = frasi[Math.floor(Math.random() * frasi.length)];
+
     //dentro il template.risposta metto la frase di risposta e l'ora
     $(".template.risposta .text").text(fraseRandom);
     $(".template.risposta .time").text(time);
@@ -218,6 +226,15 @@ function rispondi() {
     $(".body-right.active").animate({
         scrollTop: $(".body-right.active").prop("scrollHeight"),
     });
+    //vedo quale e' l'utente attivo
+    var iConct = $(".body-right.active").index();
+    console.log(iConct);
+    //e lo uso per cambiare orario in adesso
+    $(`.user-box:nth-child(${iConct}) .name span`)
+        .text("ora")
+        .css({ "font-size": "14px" });
+    $(".header-right .access").show();
+    $(".header-right .writing").hide();
 }
 
 function sendMsg() {
@@ -262,6 +279,11 @@ function sendMsg() {
     if ($(".smiles").is(":visible")) {
         $(".smiles").removeClass("smile-active");
     }
+    //quando invio il messaggio simulo che il contatto stia scrivendo
+    $(".header-right .access").hide();
+    $(".header-right .access").text("online").addClass("green");
+    $(".header-right .old-time").hide();
+    $(".header-right .writing").show();
 }
 
 //genero un orario random

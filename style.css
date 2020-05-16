@@ -42,6 +42,10 @@
     /* border-top: 2px solid #f7f7f7; */
 }
 
+.green {
+    color: green;
+}
+
 /* scrollbar di prova */
 .container-left::-webkit-scrollbar {
     width: 8px;
@@ -271,6 +275,10 @@
 .header-right .user-img img {
     width: 30px;
     height: 30px;
+}
+
+.header-right .writing {
+    display: none;
 }
 
 .icon-box {
