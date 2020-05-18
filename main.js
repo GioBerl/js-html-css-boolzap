@@ -212,17 +212,21 @@ function rispondi() {
     //SCELGO UNA FRASE RANDOM DA POSTARE
     var fraseRandom = frasi[Math.floor(Math.random() * frasi.length)];
 
-    //dentro il template.risposta metto la frase di risposta e l'ora
-    $(".template.risposta .text").text(fraseRandom);
-    $(".template.risposta .time").text(time);
-    //clono la struttura dentro il template
-    var templateRisposta = $(".template.risposta").clone();
+    //TEMPLATE CON HANDLEBARS
+    //recupero l'html del template
+    var source = $("#template-risposta").html();
+    //definisco la funzione di handlebars
+    var template = Handlebars.compile(source);
+    //DEFINISCO L'OGGETTO CON LE COSE DA SOSTITUIRE (fraseRandom e time)
+    var context = {
+        risposta: fraseRandom,
+        orario: time,
+    };
+    //passo questo oggetto alla funzione creata prima (template)
+    var newHtml = template(context);
+    //e la aggiungo a body-right visibile(ACTIVE) come domanda
+    $(".body-right.active").append(newHtml);
 
-    $(".body-right.active").animate({
-        scrollTop: $(".body-right.active").prop("scrollHeight"),
-    });
-    //e la aggiungo a body-right ACTIVE come risposta
-    $(".body-right.active").append(templateRisposta.html());
     $(".body-right.active").animate({
         scrollTop: $(".body-right.active").prop("scrollHeight"),
     });
@@ -257,16 +261,30 @@ function sendMsg() {
     if (str.trim() != 0) {
         $(".write-msg input").val(""); //azzera input
 
-        //dentro il template.domanda metto l'input dell'utente e l'ora
-        $(".template.domanda .text").text(str);
-        $(".template.domanda .time").text(time);
-        //clono la struttura dentro il template (quello che c' e' dentro body-message)
-        var template = $(".template.domanda").clone();
-        // console.log(template.html());
+        // //dentro il template.domanda metto l'input dell'utente e l'ora
+        // $(".template.domanda .text").text(str);
+        // $(".template.domanda .time").text(time);
+        // //clono la struttura dentro il template (quello che c' e' dentro body-message)
+        // var template = $(".template.domanda").clone();
+        // // console.log(template.html());
+        // //e la aggiungo a body-right visibile(ACTIVE) come domanda
+        // $(".body-right.active").append(template.html());
 
+        //TEMPLATE CON HANDLEBARS
+        //recupero l'html del template
+        var source = $("#template-domanda").html();
+        //definisco la funzione di handlebars
+        var template = Handlebars.compile(source);
+        //DEFINISCO L'OGGETTO CON LE COSE DA SOSTITUIRE (str e time)
+        var context = {
+            domanda: str,
+            orario: time,
+        };
+        console.log(context);
+        //passo questo oggetto alla funzione creata prima (template)
+        var newHtml = template(context);
         //e la aggiungo a body-right visibile(ACTIVE) come domanda
-        $(".body-right.active").append(template.html());
-        // console.log($(".body-right").append(template).html());
+        $(".body-right.active").append(newHtml);
 
         setTimeout(rispondi, 1000);
         $(".body-right.active").animate({

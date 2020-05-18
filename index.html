@@ -9,6 +9,7 @@
             src="https://kit.fontawesome.com/84d5e36e9f.js"
             crossorigin="anonymous"
         ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
     </head>
     <body>
         <div class="bg-top"></div>
@@ -268,8 +269,16 @@
                 </div>
             </div>
         </div>
+        <div class="matrix">
+            <div class="first start-animation">
+                <h1>Svegliati Neo. Matrix ha te.</h1>
+            </div>
+            <div class="second">
+                <h1>Segui il coniglio bianco.</h1>
+            </div>
+        </div>
         <!-- TEMPLATE -->
-        <div class="template domanda">
+        <!-- <div class="template domanda">
             <div class="body-message">
                 <div class="arrow-right"></div>
                 <div class="text"></div>
@@ -283,8 +292,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="template risposta">
+        </div> -->
+
+        <!-- <div class="template risposta">
             <div class="body-message answer">
                 <div class="arrow-left"></div>
                 <div class="text"></div>
@@ -298,15 +308,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="matrix">
-            <div class="first start-animation">
-                <h1>Svegliati Neo. Matrix ha te.</h1>
-            </div>
-            <div class="second">
-                <h1>Segui il coniglio bianco.</h1>
-            </div>
-        </div>
+        </div> -->
 
         <!-- ----------------------- -->
         <script
@@ -314,6 +316,51 @@
             integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
             crossorigin="anonymous"
         ></script>
+        <!-- HANDLEBARS TEMPLATE -->
+        <script id="template-domanda" type="text/x-handlebars-template">
+            <div class="body-message">
+                <div class="arrow-right"></div>
+                <div class="text">
+                    {{domanda}}
+                </div>
+                <span class="time">
+                    {{orario}}
+                </span>
+                <div class="destroy">
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="destroy-actions">
+                        <h3 class="info">
+                            message info
+                        </h3>
+                        <h3 class="delete">
+                            message delete
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script id="template-risposta" type="text/x-handlebars-template">
+            <div class="body-message answer">
+                <div class="arrow-left"></div>
+                <div class="text">
+                    {{risposta}}
+                </div>
+                <span class="time">
+                    {{orario}}
+                </span>
+                <div class="destroy">
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="destroy-actions">
+                        <h3 class="info">
+                            message info
+                        </h3>
+                        <h3 class="delete">
+                            message delete
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </script>
         <script src="main.js"></script>
     </body>
 </html>
